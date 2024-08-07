@@ -70,7 +70,14 @@ public class FlightService {
      *         user should have some insight if they attempted to edit a nonexistent flight.)
      */
     public Flight updateFlight(int flight_id, Flight flight){
+        Flight existingFlight = flightDAO.getFlightById(flight_id);
+    
+        if (existingFlight == null) {
+        // Flight with the given ID doesn't exist
         return null;
+        }
+        flightDAO.updateFlight(flight_id, flight);
+        return existingFlight;
     }
 
     /**
